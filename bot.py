@@ -4,6 +4,7 @@
 import logging
 import sqlite3
 from aiogram import Bot, Dispatcher, executor, types
+import keyboards
 
 # Main object of our bot
 bot = Bot(token='5224591766:AAEusyMiqE_lkFESzCS58w9bPCYyMHt8S3s')
@@ -20,9 +21,9 @@ async def greeting(message: types.Message):
 	try:
 		me = await bot.get_me()
 	finally:
-		await message.reply("Hi, {0}, I am a shedule_KPK_bot".format(message.from_user.first_name))
+		await message.reply("Hi, {0}, I am a shedule_KPK_bot".format(message.from_user.first_name), reply_markup=keyboards.greet)
 
 
 if __name__ == "__main__":
 	# Start Bot
-	executor.start_polling(dispatcher, skip_updates=True)
+	executor.start_polling(dispatcher, skip_updates=False)
