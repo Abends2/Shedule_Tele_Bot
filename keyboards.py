@@ -1,5 +1,8 @@
-from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-btn=KeyboardButton("/Hi")
+title_btn = KeyboardButton("/title")
+start_btn = KeyboardButton("/start")
+shedule_btn = KeyboardButton("/shedule")
+week_btn = KeyboardButton("/week")
 
-greet = ReplyKeyboardMarkup(resize_keyboard=True).add(btn)
+bttns = ReplyKeyboardMarkup(resize_keyboard=True).add(start_btn, title_btn, shedule_btn, week_btn)

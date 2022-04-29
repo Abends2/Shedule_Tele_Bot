@@ -1,2 +1,6 @@
 aiogram
 sqllite3
+psycopg2-binary
+lxml
+requests
+beautifulsoup4
