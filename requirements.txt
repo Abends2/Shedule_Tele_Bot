@@ -1,6 +1,6 @@
 aiogram
-sqllite3
-psycopg2-binary
+logging
 lxml
 requests
 beautifulsoup4
+openpyxl

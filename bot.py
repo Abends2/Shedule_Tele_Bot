@@ -1,10 +1,12 @@
 # ----- Author: Abends2 -----
 # ----- Shedule KPK Bot -----
 
-import scraper
-import logging
-import sqlite3
 from aiogram import Bot, Dispatcher, executor, types
+import logging
+import psycopg2
+
+import scraper
+import xls_scraper
 import keyboards
 
 # Main object of our bot
@@ -37,6 +39,12 @@ async def giving_main_file(message: types.Message):
 		logging.info("File Not Found")
 	finally:
 		await message.answer("What else?\n/start\n/title\n/shedule\n/week")
+
+
+@dispatcher.message_handler(commands='shedule')
+async def giving_shedule(message: types.Message):
+	await message.answer(text=xls_scraper.result)
+	logging.info("Shedule was sent successfully")
 
 
 @dispatcher.message_handler(commands='week')
