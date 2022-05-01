@@ -2,5 +2,5 @@ aiogram
 logging
 lxml
 requests
-beautifulsoup4
+BeautifulSoup4
 openpyxl
