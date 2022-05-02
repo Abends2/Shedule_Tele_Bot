@@ -1,3 +1,9 @@
 INFO:aiogram:Bot: Tele_Bot_Test [@G59_test_bot]
 INFO:aiogram.dispatcher.dispatcher:Start polling.
+INFO:root:Greeted successfully
+INFO:root:Information was sent successfully
+INFO:root:Date was sent successfully
+INFO:root:File was devivered successfully
 INFO:root:Shedule was sent successfully
+INFO:aiogram.dispatcher.dispatcher:Stop polling...
+WARNING:aiogram:Goodbye!
