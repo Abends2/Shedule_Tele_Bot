@@ -2,7 +2,7 @@ from aiogram import types, Dispatcher
 from create_bot import dispatcher
 from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.dispatcher import FSMContext
-from handlers import keyboards
+from keyboards import bttns, group
 from openpyxl import load_workbook
 import logging
 
@@ -17,7 +17,7 @@ class Group(StatesGroup):
 # ---------- /shedule ----------
 # @dispatcher.message_handler(commands='shedule', state=None)
 async def say_group(message: types.Message, state: FSMContext):
-	await message.answer(text="Enter Your Group: ")
+	await message.answer(text="Выбери в меню свою группу", reply_markup=group)
 	await Group.student_group.set()
 
 
@@ -47,10 +47,10 @@ async def giving_shedule(message: types.Message, state: FSMContext):
 
 	if data:
 		try:
-			await message.answer(text=result)
+			await message.answer(text=result, reply_markup=bttns)
 			logging.info("Shedule was sent successfully")
 		except FileNotFoundError:
-			await message.answer(text='I didn\'t find file, sorry(\n' + cmd_strings)
+			await message.answer(text='Прости, я не нашел файл. Мой администратор (надеюсь) вскоре исправит ситуацию)\n' + cmd_strings, reply_markup=bttns)
 			logging.info("File Not Found")
 	else:
 		print("Группа не найдена")

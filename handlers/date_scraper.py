@@ -1,6 +1,6 @@
 from aiogram import types, Dispatcher
 from create_bot import dispatcher
-from handlers import keyboards
+from keyboards import bttns
 
 from bs4 import BeautifulSoup
 import requests
@@ -22,7 +22,7 @@ async def say_week(message: types.Message):
 	for quote in quotes:
 		data = quote.text
 
-	await message.answer(text=f'Date: {data}')
+	await message.answer(text=f'Сегодня: {data}', reply_markup=bttns)
 	logging.info("Date was sent successfully")
 
 

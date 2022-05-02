@@ -1,34 +1,4 @@
 INFO:aiogram:Bot: Tele_Bot_Test [@G59_test_bot]
 INFO:root:Bot activated
 INFO:aiogram.dispatcher.dispatcher:Start polling.
-INFO:root:Shedule was sent successfully
-INFO:root:Shedule was sent successfully
-INFO:root:Greeted successfully
-ERROR:asyncio:Task exception was never retrieved
-future: <Task finished name='Task-33' coro=<Dispatcher._process_polling_updates() done, defined at C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py:407> exception=MessageTextIsEmpty('Message text is empty')>
-Traceback (most recent call last):
-  File "C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 415, in _process_polling_updates
-    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
-  File "C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 235, in process_updates
-    return await asyncio.gather(*tasks)
-  File "C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\handler.py", line 116, in notify
-    response = await handler_obj.handler(*args, **partial_data)
-  File "C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 256, in process_update
-    return await self.message_handlers.notify(update.message)
-  File "C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\handler.py", line 116, in notify
-    response = await handler_obj.handler(*args, **partial_data)
-  File "D:\pythonProject\Shedule_Tele_Bot\handlers\shedule.py", line 50, in giving_shedule
-    await message.answer(text=result)
-  File "C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\types\message.py", line 388, in answer
-    return await self.bot.send_message(
-  File "C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\bot\bot.py", line 334, in send_message
-    result = await self.request(api.Methods.SEND_MESSAGE, payload)
-  File "C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\bot\base.py", line 231, in request
-    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
-  File "C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\bot\api.py", line 140, in make_request
-    return check_result(method, response.content_type, response.status, await response.text())
-  File "C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\bot\api.py", line 115, in check_result
-    exceptions.BadRequest.detect(description)
-  File "C:\Users\Ivan-\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\utils\exceptions.py", line 140, in detect
-    raise err(cls.text or description)
-aiogram.utils.exceptions.MessageTextIsEmpty: Message text is empty
+INFO:root:Bot helped his user

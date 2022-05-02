@@ -1,6 +1,6 @@
 from aiogram import types, Dispatcher
 from create_bot import dispatcher
-from handlers import keyboards
+from keyboards import bttns
 import logging
 
 logging.basicConfig(filename="../logs/logs.txt", filemode='w', level=logging.INFO)
@@ -8,15 +8,17 @@ logging.basicConfig(filename="../logs/logs.txt", filemode='w', level=logging.INF
 # ---------- /information ----------
 # @dispatcher.message_handler(commands=['information'])
 async def giving_information(message: types.Message):
-	inf_college = """
+	inf_general = """
 	Информация о колледже:
 	- Полное наименование Колледжа: Колледж программирования и кибербезопасности
 	- Сокращенное наименование: КПК
 	- Наименование Колледжа на английском языке: Сollege of programming and cyber security
-	- Адрес местонахождения: Москва, 1-Щипковский переулок, д. 23. 
-	"""
+	- Адрес местонахождения: Москва, 1-Щипковский переулок, д. 23.
 
-	inf_profession = """
+	Информация о ВУЗ'е:
+	- Полное наименование образовательной организации: Федеральное государственное бюджетное образовательное учреждение высшего образования "МИРЭА - Российский технологический университет"
+	- Сокращенное наименование образовательной организации: РТУ МИРЭА
+
 	Специальности:
 	1) 09.02.01 Компьютерные системы и комплексы
 	2) 09.02.03 Программирование в компьютерных системах
@@ -27,15 +29,7 @@ async def giving_information(message: types.Message):
 	7) 11.02.15 Инфокоммуникационные сети и системы связи
 	8) 12.02.05 Оптические и оптико-электронные приборы и системы
 	9) 12.02.09 Производство и эксплуатация оптических и оптикоэлектронных приборов и систем
-	"""
 
-	inf_university = """
-	Информация о ВУЗ'е:
-	- Полное наименование образовательной организации: Федеральное государственное бюджетное образовательное учреждение высшего образования "МИРЭА - Российский технологический университет"
-	- Сокращенное наименование образовательной организации: РТУ МИРЭА
-	"""
-
-	inf_time = """
 	Время проведения занятий:
 	1 пара – 8:45-10:15
 	2 пара – 10:25-11:55
@@ -43,7 +37,8 @@ async def giving_information(message: types.Message):
 	4 пара – 14:35-16:05
 	5 пара – 16:15-17:45
 	"""
-	await message.answer(text=inf_college)
+	
+	await message.answer(text=inf_general, reply_markup=bttns)
 	logging.info("Information was sent successfully")
 
 
