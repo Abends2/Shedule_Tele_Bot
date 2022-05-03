@@ -4,7 +4,9 @@ from keyboards import bttns
 
 from bs4 import BeautifulSoup
 import requests
+
 import logging
+import emoji
 
 
 logging.basicConfig(filename="./logs/logs.txt", filemode='w', level=logging.INFO)
@@ -12,18 +14,23 @@ logging.basicConfig(filename="./logs/logs.txt", filemode='w', level=logging.INFO
 # ---------- /week ----------
 # @dispatcher.message_handler(commands=['week'])
 async def say_week(message: types.Message):
-	url = 'https://www.mirea.ru/'
-	response = requests.get(url)
-	soup = BeautifulSoup(response.text, 'lxml')
+	# This command return an information from site of MIREA
+	try:
+		url = 'https://www.mirea.ru/'
+		response = requests.get(url)
+		soup = BeautifulSoup(response.text, 'lxml')
 
-	quotes = soup.find_all('div', class_='bonus_cart-title')
-	data = ''
+		quotes = soup.find_all('div', class_='bonus_cart-title')
+		data = ''
 
-	for quote in quotes:
-		data = quote.text
+		for quote in quotes:
+			data = quote.text
 
-	await message.answer(text=f'Сегодня: {data}', reply_markup=bttns)
-	logging.info("Date was sent successfully")
+		await message.answer(text=emoji.emojize(":spiral_calendar:") + f'<b>Сегодня</b>: {data}', parse_mode='html', reply_markup=bttns)
+		logging.info("Date was sent successfully")
+	except requests.exceptions.InvalidURL:
+		await message.answer(text="Извини, я не смог получить данные с сайта МИРЭА")
+		logging.info("Not found")
 
 
 def register_handlers_date_scraper(dp: Dispatcher):

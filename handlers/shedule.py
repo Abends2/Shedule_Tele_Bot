@@ -2,6 +2,7 @@ from aiogram import types, Dispatcher
 from create_bot import dispatcher
 from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.dispatcher import FSMContext
+
 from keyboards import bttns, group
 from openpyxl import load_workbook
 import logging
@@ -21,10 +22,10 @@ async def say_group(message: types.Message, state: FSMContext):
 	await Group.student_group.set()
 
 
+# ---------- /shedule : State ----------
 # @dispatcher.message_handler(state=Group.student_group)
 async def giving_shedule(message: types.Message, state: FSMContext):
 	data = message.text
-	print(data)
 	await state.update_data(answer=data)
 
 	book = load_workbook(filename="./files/shedule.xlsx")
@@ -43,7 +44,7 @@ async def giving_shedule(message: types.Message, state: FSMContext):
 				cell = cell[0:cell.find(";") + 1] + '\n' + '   ' + cell[cell.find(";") + 2:]
 			result += cell + '\n'
 	else:
-		print("No data")
+		logging.info("A problem with shedule")
 
 	if data:
 		try:
@@ -53,7 +54,7 @@ async def giving_shedule(message: types.Message, state: FSMContext):
 			await message.answer(text='Прости, я не нашел файл. Мой администратор (надеюсь) вскоре исправит ситуацию)\n' + cmd_strings, reply_markup=bttns)
 			logging.info("File Not Found")
 	else:
-		print("Группа не найдена")
+		logging.info("User's group wasn't found")
 		
 	await state.finish()
 
