@@ -4,8 +4,9 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.dispatcher import FSMContext
 
 from keyboards import bttns, group
-from openpyxl import load_workbook
+from openpyxl import load_workbook # pandas
 import logging
+import datetime
 
 logging.basicConfig(filename="../logs/logs.txt", filemode='w', level=logging.INFO)
 
@@ -24,41 +25,52 @@ async def say_group(message: types.Message, state: FSMContext):
 
 # ---------- /shedule : State ----------
 # @dispatcher.message_handler(state=Group.student_group)
-async def giving_shedule(message: types.Message, state: FSMContext):
-	data = message.text
+async def giving_shedule(callback : types.CallbackQuery, state: FSMContext):
+	data = callback.data 	# getting callback_data from InlineKeyboard
 	await state.update_data(answer=data)
 
-	book = load_workbook(filename="./files/shedule.xlsx")
-	sheet = book["Shedule"]
+	try:
+		book = load_workbook(filename="./files/shedule.xlsx")
+		sheet = book["Shedule"]
+	except FileNotFoundError:
+		await callback.message.answer(text='Прости, я не нашел файл. Мой администратор вскоре исправит ситуацию)\n', reply_markup=bttns)
+		await state.finish()
+		logging.info(f"File Not Found, time={datetime.datetime.now()}")
 
-	groups = {'ИБ-21' : 'A',
-			'ИБ-22': 'B',
-			'ИБ-23': 'C'}
-
+	groups = {'ИБ-21' : 'A', 'ИБ-22': 'B', 'ИБ-23': 'C'}
 	result = ''
 
-	if data in groups:
-		for i in range(1, 32):
-			cell = sheet[groups[data] + str(i)].value
-			if ";" in cell:
-				cell = cell[0:cell.find(";") + 1] + '\n' + '   ' + cell[cell.find(";") + 2:]
-			result += cell + '\n'
-	else:
-		logging.info("A problem with shedule")
+	try:
+		if data in groups:
+			for i in range(1, 32):
+				cell = sheet[groups[data] + str(i)].value
+				if ";" in cell:
+					cell = cell[0:cell.find(";") + 1] + '\n' + '   ' + cell[cell.find(";") + 2:]
+				result += cell + '\n'
+		elif data != "Отмена":
+			await callback.message.answer(text='Прости, я не нашел файл. Мой администратор вскоре исправит ситуацию)\n', reply_markup=bttns)
+			logging.info(f"Shedule function was canceled, time={datetime.datetime.now()}")
+		else:
+			logging.info(f"Wrong variable data, time={datetime.datetime.now()}")
+	finally:
+		pass
 
-	if data:
-		try:
-			await message.answer(text=result, reply_markup=bttns)
-			logging.info("Shedule was sent successfully")
-		except FileNotFoundError:
-			await message.answer(text='Прости, я не нашел файл. Мой администратор (надеюсь) вскоре исправит ситуацию)\n' + cmd_strings, reply_markup=bttns)
-			logging.info("File Not Found")
+	if data != "Отмена":
+		await callback.message.answer(text=result, reply_markup=bttns)
+		await callback.message.answer(text="Жду дальнейших указаний", reply_markup=bttns)
+		await callback.answer()
+		await state.finish()
+		logging.info(f"Shedule was sent successfully, time={datetime.datetime.now()}")
+	elif data == "Отмена" or data == False or data == '':
+		await callback.message.answer("Жду других команд")
+		await callback.answer()
+		await state.finish()
+		logging.info(f"Exit from StatesGroup, time={datetime.datetime.now()}")
 	else:
-		logging.info("User's group wasn't found")
-		
-	await state.finish()
+		await state.finish()
+		logging.info(f"User's group wasn't found, time={datetime.datetime.now()}")
 
 
 def register_handlers_shedule(dp: Dispatcher):
-	dp.register_message_handler(say_group, commands=['shedule'], state=None)
-	dp.register_message_handler(giving_shedule, state=Group.student_group)
+	dp.register_message_handler(say_group, text=['📌Расписание', 'Расписание', 'shedule'], state=None)
+	dp.register_callback_query_handler(giving_shedule, state=Group.student_group)

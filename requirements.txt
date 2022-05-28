@@ -1,5 +1,4 @@
 aiogram
-logging
 lxml
 requests
 BeautifulSoup4

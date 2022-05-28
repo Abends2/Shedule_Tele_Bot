@@ -2,6 +2,7 @@ from aiogram import types, Dispatcher
 from create_bot import dispatcher
 from keyboards import bttns
 import logging
+import datetime
 
 logging.basicConfig(filename="../logs/logs.txt", filemode='w', level=logging.INFO)
 
@@ -40,8 +41,8 @@ async def giving_information(message: types.Message):
 	"""
 	
 	await message.answer(text=inf_general, parse_mode="html", reply_markup=bttns)
-	logging.info("Information was sent successfully")
+	logging.info(f"Information was sent successfully, user={message.from_user}, time={datetime.datetime.now()}")
 
 
 def register_handlers_informer(dp : Dispatcher):
-	dp.register_message_handler(giving_information, commands=['information'])
+	dp.register_message_handler(giving_information, text=['🧷Инфо', 'Инфо', 'info'])

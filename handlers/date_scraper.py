@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import requests
 
 import logging
+import datetime
 import emoji
 
 
@@ -27,11 +28,11 @@ async def say_week(message: types.Message):
 			data = quote.text
 
 		await message.answer(text=emoji.emojize(":spiral_calendar:") + f'<b>Сегодня</b>: {data}', parse_mode='html', reply_markup=bttns)
-		logging.info("Date was sent successfully")
+		logging.info(f"Date was sent successfully, user={message.from_user}, time={datetime.datetime.now()}")
 	except requests.exceptions.InvalidURL:
 		await message.answer(text="Извини, я не смог получить данные с сайта МИРЭА")
-		logging.info("Not found")
+		logging.info(f"Not found, user={message.from_user}, time={datetime.datetime.now()}")
 
 
 def register_handlers_date_scraper(dp: Dispatcher):
-	dp.register_message_handler(say_week, commands=['week'])
+	dp.register_message_handler(say_week, text=['📆Неделя', 'Неделя', 'week'])
