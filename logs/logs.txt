@@ -1,8 +1,0 @@
-INFO:aiogram:Bot: Tele_Bot_Test [@G59_test_bot]
-INFO:root:Bot activated
-INFO:aiogram.dispatcher.dispatcher:Start polling.
-INFO:root:Wrong variable data, time=2022-05-28 19:46:57.028768
-INFO:root:Exit from StatesGroup, time=2022-05-28 19:46:57.404353
-INFO:root:Shedule was sent successfully, time=2022-05-28 19:47:03.324670
-INFO:root:Shedule was sent successfully, time=2022-05-28 19:47:06.568891
-INFO:root:Greeted successfully, user={"id": 729373827, "is_bot": false, "first_name": "Иван", "last_name": "Беляев", "username": "maybeAbends", "language_code": "ru"}, time=2022-05-28 19:47:13.025898
